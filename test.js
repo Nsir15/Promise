@@ -1,8 +1,20 @@
-let promise1 = new Promise(function(resolve,reject){
+
+let MyPromise = require('./Promise-es5');
+
+// let promise1 = new Promise(function(resolve,reject){
+//   let num = Math.random();
+//   if(num > .5){
+//     resolve('成功了！！！')
+//   }else{
+//     reject('oh no !!!!')
+//   }
+// });
+
+let promise1 = new MyPromise(function (resolve, reject) {
   let num = Math.random();
-  if(num > .5){
+  if (num > .5) {
     resolve('成功了！！！')
-  }else{
+  } else {
     reject('oh no !!!!')
   }
 });

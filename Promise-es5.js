@@ -15,6 +15,9 @@ function MyPromise(task){
   let that = this;
   that.status = PENDING;
 
+  // 存储then中的承诺回调函数
+  that.fulfilleds = [];
+  that.rejects = [];
 
   // 定义任务的两个参数
   
@@ -24,6 +27,12 @@ function MyPromise(task){
       that.status = FULFILLED;
       
       // 执行then里面传递的 - 成功的回调函数
+      setTimeout(() => {
+        that.fulfilleds.forEach(function (item) {
+          item(value)
+        });
+      }, 0);
+      
     }
   };
 
@@ -33,6 +42,11 @@ function MyPromise(task){
       that.status = REJECT;
 
       // 执行then里面传递的 - 失败的回调函数
+      setTimeout(() => {
+        that.rejects.forEach(function (item) {
+          item(reason)
+        })
+      }, 0);  
     }
   };
 
@@ -47,7 +61,8 @@ function MyPromise(task){
 // 5. 给实例添加then方法
 // then 里面放两个回调函数，分别是成功和失败的回调
 MyPromise.prototype.then = function(onFulFilled,onReject){
-
+    this.fulfilleds.push(onFulFilled);
+    this.rejects.push(onReject);
 };
 
 module.exports = MyPromise;
