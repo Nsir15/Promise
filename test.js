@@ -1,43 +1,19 @@
-// let Promise = require('./promise');
+let promise1 = new Promise(function(resolve,reject){
+  let num = Math.random();
+  if(num > .5){
+    resolve('成功了！！！')
+  }else{
+    reject('oh no !!!!')
+  }
+});
 
-// let p1 = new Promise((resolve,reject)=>{
-//   setTimeout(() => {
-//     resolve('p1')
-//   }, 1500);
-// })
 
-// let p2 = p1.then(res=>{
-//   return res+'p2--haha'
-// },reason=>{
-//   throw Error('')
-// })
-
-// let p3 = p2.then(res=>{
-//   console.log(res);
+promise1.then(function(res){
+  console.log(res);
   
-// },reason=>{
-//   console.log(reason);
-// })
-
-// console.log('3');
+},function(reason){
+  console.log(reason);
+});
 
 
-function AA (){
-  console.log(1);
-  
-  return new Promise((resolve,reject)=>{
-    setTimeout(() => {
-      resolve(2)
-    }, 0);
-  })
-};
-
-async function fn(){
-  console.log(2);
-  let res = await AA();
-  console.log(3);
-}
-
-fn();
-console.log(4);
 
