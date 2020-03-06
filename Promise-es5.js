@@ -23,31 +23,30 @@ function MyPromise(task){
   
   // 调用此方法会将当前promise状态变为成功状态
   function resolve(value){
-    if(that.status  === PENDING){
-      that.status = FULFILLED;
-      
-      // 执行then里面传递的 - 成功的回调函数
-      setTimeout(() => {
+    let timer = setTimeout(() => {
+      clearTimeout(timer);
+      if (that.status === PENDING) {
+        that.status = FULFILLED;
+        // 执行then里面传递的 - 成功的回调函数
         that.fulfilleds.forEach(function (item) {
           item(value)
         });
-      }, 0);
-      
-    }
+      }   
+    }, 0);
   };
 
   // 调用此方法会将当前promise状态变为失败状态
   function reject(reason){
-    if(that.status === PENDING){
-      that.status = REJECT;
-
-      // 执行then里面传递的 - 失败的回调函数
-      setTimeout(() => {
-        that.rejects.forEach(function (item) {
-          item(reason)
-        })
-      }, 0);  
-    }
+    let timer = setTimeout(()=>{
+      clearTimeout(timer)
+       if (that.status === PENDING) {
+         that.status = REJECT;
+         // 执行then里面传递的 - 失败的回调函数
+         that.rejects.forEach(function (item) {
+           item(reason)
+         })
+       }
+    },0);  // 0 并不是立即执行，浏览器有最小反应时间
   };
 
   // 4.初始化promise的时候，task会立即执行
